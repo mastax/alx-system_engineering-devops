@@ -1,50 +1,44 @@
-# Auto-Remediation with Puppet and Configuration Management
+# 0x0A. Configuration management
 
-## Background Context
+## Resource
 
-During my tenure at SlideShare, I developed an auto-remediation tool named Skynet, which utilized Puppet for managing and scaling our cloud infrastructure. Skynet leveraged MCollective for parallel job execution, enabling actions across multiple servers simultaneously. However, a critical bug in the code resulted in passing `nil` to the filter method, which unintentionally targeted all servers for termination.
+- [Intro to Configuration Management](https://www.digitalocean.com/community/tutorials/an-introduction-to-configuration-management)
+- [Puppet resource type: file](https://puppet.com/docs/puppet/5.5/types/file.html) (*Check "Resource types" for all manifest types in the left menu*)
+- [Puppet’s Declarative Language: Modeling Instead of Scripting](https://puppet.com/blog/puppets-declarative-language-modeling-instead-of-scripting/)
+- [Puppet lint](http://puppet-lint.com/)
+- [Puppet emacs mode](https://github.com/voxpupuli/puppet-mode)
+- [Puppet CookBook](https://www.puppetcookbook.com/)
 
-### Consequences:
-- MCollective interpreted `nil` as a directive to terminate all servers.
-- 75% of our document conversion infrastructure was shut down.
-- Users were unable to convert PDFs, PowerPoints, and videos.
+## Installing `puppet` and `puppet-lint`
 
-Thanks to Puppet's configuration management capabilities, we swiftly restored our infrastructure within an hour. Automating this recovery process with Puppet prevented prolonged downtime and manual errors that would have complicated recovery efforts.
+```sh
+# installing puppet and puppet-lint
+wget https://apt.puppet.com/puppet7-release-focal.deb && \
+    dpkg -i puppet7-release-focal.deb && \
+    apt-get update && \
+    apt-get install puppet-agent puppet-lint -y
 
-[![Me at work](https://x.com/devopsreact/status/836971570136375296)](https://x.com/devopsreact/status/836971570136375296)
+# confirming installation
+puppet -V
+puppet-lint -v
 
-## Resources
+# If you get an error saying puppet command not found, source the path
+source /etc/profile.d/puppet-agent.sh
+```
 
-### Read or watch:
-- [Intro to Configuration Management](link)
-- [Puppet resource type: file](link) (check “Resource types” for all manifest types in the left menu)
-- [Puppet’s Declarative Language: Modeling Instead of Scripting](link)
-- [Puppet lint](link)
-- [Puppet emacs mode](link)
+## Tasks
 
-## Requirements
+<details>
+<summary><a href="./0-create_a_file.pp">0. Create a file</a></summary><br>
+<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/NM2k46hX/image.png' border='0' alt='image'/></a>
+</details>
 
-### General
-- All files interpreted on Ubuntu 20.04 LTS
-- All files end with a new line
-- **Mandatory** README.md file at the project's root folder
+<details>
+<summary><a href="./1-install_a_package.pp">1. Install a package</a></summary><br>
+<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/PqVvKj7c/image.png' border='0' alt='image'/></a>
+</details>
 
-### Puppet Manifests
-- Must pass puppet-lint version 2.1.1 without errors
-- Must run without errors
-- First line of each Puppet manifest must be a comment explaining its purpose
-- Puppet manifest files must have the extension `.pp`
-
-### Note on Versioning
-- Ubuntu 20.04 VM should have Puppet 5.5 preinstalled.
-
-## Installation Guide
-
-### Install Puppet
-
-```bash
-$ apt-get install -y ruby=1:2.7+1 --allow-downgrades
-$ apt-get install -y ruby-augeas
-$ apt-get install -y ruby-shadow
-$ apt-get install -y puppet
-
+<details>
+<summary><a href="./2-execute_a_command.pp">2. Execute a command</a></summary><br>
+<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/CxZFC13P/image.png' border='0' alt='image'/></a>
+</details>
